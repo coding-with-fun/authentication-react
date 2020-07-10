@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react";
-import { Redirect } from "react-router-dom";
 
 export const UserContext = createContext();
 
@@ -32,8 +31,11 @@ export const UserProvider = (props) => {
     data = JSON.parse(data);
     if (data && data.password === userPassword) {
       data.isValid = true;
+      localStorage.setItem("userData", JSON.stringify(data));
+    } else {
+      e.preventDefault();
+      alert("Invalid password!");
     }
-    localStorage.setItem("userData", JSON.stringify(data));
   };
 
   const logOut = (e) => {

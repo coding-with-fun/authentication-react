@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { SignUpForm, Dashboard, SignInForm, Navigation } from "..";
-import { UserContext } from "../../contexts/UserContext";
 
 export default function LandingPage() {
   let userData = localStorage.getItem("userData");
@@ -22,7 +21,7 @@ export default function LandingPage() {
             exact
             path="/"
             render={(props) => (
-              <Dashboard userName="Harsh" isValid={userData.isValid} />
+              <Dashboard userName={userData.userName} isValid={userData.isValid} />
             )}
           />
           <Switch>
