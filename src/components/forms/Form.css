@@ -1,0 +1,36 @@
+.form-auth .btn {
+  text-transform: uppercase;
+  border-radius: 10px;
+}
+
+.form-auth {
+  width: 50%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-auth .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+}
+
+.form-auth .form-control:focus {
+  z-index: 2;
+  box-shadow: 0 0 11px 4px;
+}
+
+.form-auth input[id="confirmPassword"] {
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .form-auth {
+    width: 100%;
+  }
+}
