@@ -42,16 +42,21 @@ export const UserProvider = (props) => {
   const validate = (e) => {
     let data = localStorage.getItem("userData");
     data = JSON.parse(data);
-    if (data && data.password !== userPassword) {
+    if (!data) {
       e.preventDefault();
-      alert("Invalid password!");
+      alert("User does not exist!!");
     } else {
-      if (data && userEmail !== data.inputEmail) {
+      if (data && data.password !== userPassword) {
         e.preventDefault();
-        alert("Email ID does not exist!!");
+        alert("Invalid password!");
       } else {
-        data.isValid = true;
-        localStorage.setItem("userData", JSON.stringify(data));
+        if (data && userEmail !== data.inputEmail) {
+          e.preventDefault();
+          alert("Email ID does not exist!!");
+        } else {
+          data.isValid = true;
+          localStorage.setItem("userData", JSON.stringify(data));
+        }
       }
     }
   };
