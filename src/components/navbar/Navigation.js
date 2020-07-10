@@ -1,14 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./Navigation.css";
-import { UserContext } from "../../contexts/UserContext";
 
-export default function Navbar() {
-  const { inputEmail } = useContext(UserContext);
-
-  let userData = localStorage.getItem(inputEmail);
-  userData = JSON.parse(userData);
-  const isValid = userData.isValid;
-
+export default function Navbar({ isValid }) {
   return (
     <div className="navigation">
       {/* Fixed navbar */}
@@ -32,12 +25,20 @@ export default function Navbar() {
           id="navbarNavAltMarkup"
         >
           <div className="navbar-nav">
-            <a className="btn btn-outline-light" href="/signin">
-              Sign In
-            </a>
-            <a className="btn btn-outline-light" href="/signup">
-              Sign Up
-            </a>
+            {!isValid ? (
+              <>
+                <a className="btn btn-outline-light" href="/signin">
+                  Sign In
+                </a>
+                <a className="btn btn-outline-light" href="/signup">
+                  Sign Up
+                </a>
+              </>
+            ) : (
+              <a className="btn btn-outline-light" href="/">
+                Logout
+              </a>
+            )}
           </div>
         </div>
       </nav>
