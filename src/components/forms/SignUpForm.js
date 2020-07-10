@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Form.css";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function SignUpForm() {
+  const {
+    saveValues,
+    setName,
+    setUserName,
+    setInputEmail,
+    setPassword,
+    setConfirmPassword,
+  } = useContext(UserContext);
+
   return (
     <div className="text-center container">
-      <form className="form-auth">
+      <form action="/" className="form-auth" onSubmit={saveValues}>
         <img
           className="mb-4"
           src="https://image.flaticon.com/icons/png/512/61/61457.png"
@@ -18,14 +28,16 @@ export default function SignUpForm() {
           id="name"
           className="form-control"
           placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
           required
-          autofocus
+          autoFocus
         />
         <input
           type="text"
           id="username"
           className="form-control"
           placeholder="User Name"
+          onChange={(e) => setUserName(e.target.value)}
           required
         />
         <input
@@ -33,6 +45,7 @@ export default function SignUpForm() {
           id="inputEmail"
           className="form-control"
           placeholder="Email address"
+          onChange={(e) => setInputEmail(e.target.value)}
           required
         />
         <input
@@ -40,6 +53,7 @@ export default function SignUpForm() {
           id="inputPassword"
           className="form-control"
           placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         <input
@@ -47,6 +61,7 @@ export default function SignUpForm() {
           id="confirmPassword"
           className="form-control"
           placeholder="Confirm Password"
+          onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
         <button className="btn btn-lg btn-primary btn-block" type="submit">
