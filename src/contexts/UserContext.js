@@ -14,27 +14,27 @@ export const UserProvider = (props) => {
   const saveValues = (e) => {
     let data = localStorage.getItem("userData");
     data = JSON.parse(data);
-    if (data && inputEmail === data.inputEmail) {
+    if (!password || !confirmPassword || password !== confirmPassword) {
       e.preventDefault();
-      alert("Email ID already exist!!");
-    }
-
-    if (data && userName === data.userName) {
-      e.preventDefault();
-      alert("Username already exist!!");
+      alert("Invalid password!");
     } else {
-      if (password === confirmPassword) {
-        const data = {
-          name: name,
-          userName: userName,
-          inputEmail: inputEmail,
-          password: password,
-          isValid: true,
-        };
-        localStorage.setItem("userData", JSON.stringify(data));
-      } else {
+      if (data && inputEmail === data.inputEmail) {
         e.preventDefault();
-        alert("Invalid password!");
+        alert("Email ID already exist!!");
+      } else {
+        if (data && userName === data.userName) {
+          e.preventDefault();
+          alert("Username already exist!!");
+        } else {
+          const data = {
+            name: name,
+            userName: userName,
+            inputEmail: inputEmail,
+            password: password,
+            isValid: true,
+          };
+          localStorage.setItem("userData", JSON.stringify(data));
+        }
       }
     }
   };
@@ -42,16 +42,17 @@ export const UserProvider = (props) => {
   const validate = (e) => {
     let data = localStorage.getItem("userData");
     data = JSON.parse(data);
-    if (data && userEmail !== data.inputEmail) {
-      e.preventDefault();
-      alert("Email ID does not exist!!");
-    }
-    if (data && data.password === userPassword) {
-      data.isValid = true;
-      localStorage.setItem("userData", JSON.stringify(data));
-    } else {
+    if (data && data.password !== userPassword) {
       e.preventDefault();
       alert("Invalid password!");
+    } else {
+      if (data && userEmail !== data.inputEmail) {
+        e.preventDefault();
+        alert("Email ID does not exist!!");
+      } else {
+        data.isValid = true;
+        localStorage.setItem("userData", JSON.stringify(data));
+      }
     }
   };
 
@@ -66,20 +67,14 @@ export const UserProvider = (props) => {
     <div>
       <UserContext.Provider
         value={{
-          name: name,
-          setName: setName,
-          userName: userName,
           setUserName: setUserName,
-          inputEmail: inputEmail,
-          setInputEmail: setInputEmail,
-          password: password,
-          setPassword: setPassword,
-          confirmPassword: confirmPassword,
-          setConfirmPassword: setConfirmPassword,
-          userEmail: userEmail,
-          setUserEmail: setUserEmail,
-          userPassword: userPassword,
           setUserPassword: setUserPassword,
+          setName: setName,
+          setInputEmail: setInputEmail,
+          setPassword: setPassword,
+          setConfirmPassword: setConfirmPassword,
+          setUserEmail: setUserEmail,
+
           saveValues: saveValues,
           validate: validate,
           logOut: logOut,
