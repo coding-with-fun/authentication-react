@@ -21,13 +21,18 @@ export default function LandingPage() {
             exact
             path="/"
             render={(props) => (
-              <Dashboard userName={userData.userName} isValid={userData.isValid} />
+              <Dashboard
+                userName={userData.name}
+                isValid={userData.isValid}
+              />
             )}
           />
-          <Switch>
-            <Route path="/signup" component={SignUpForm} />
-            <Route path="/signin" component={SignInForm} />
-          </Switch>
+          {userData.isValid ? null : (
+            <Switch>
+              <Route path="/signup" component={SignUpForm} />
+              <Route path="/signin" component={SignInForm} />
+            </Switch>
+          )}
         </div>
       </BrowserRouter>
     </div>

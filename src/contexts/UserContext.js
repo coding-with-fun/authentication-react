@@ -12,23 +12,40 @@ export const UserProvider = (props) => {
   const [confirmPassword, setConfirmPassword] = useState();
 
   const saveValues = (e) => {
-    if (password === confirmPassword) {
-      const data = {
-        name: name,
-        userName: userName,
-        inputEmail: inputEmail,
-        password: password,
-        isValid: true,
-      };
-      localStorage.setItem("userData", JSON.stringify(data));
+    let data = localStorage.getItem("userData");
+    data = JSON.parse(data);
+    if (data && inputEmail === data.inputEmail) {
+      e.preventDefault();
+      alert("Email ID already exist!!");
+    }
+
+    if (data && userName === data.userName) {
+      e.preventDefault();
+      alert("Username already exist!!");
     } else {
-      alert("Invalid password!");
+      if (password === confirmPassword) {
+        const data = {
+          name: name,
+          userName: userName,
+          inputEmail: inputEmail,
+          password: password,
+          isValid: true,
+        };
+        localStorage.setItem("userData", JSON.stringify(data));
+      } else {
+        e.preventDefault();
+        alert("Invalid password!");
+      }
     }
   };
 
   const validate = (e) => {
     let data = localStorage.getItem("userData");
     data = JSON.parse(data);
+    if (data && userEmail !== data.inputEmail) {
+      e.preventDefault();
+      alert("Email ID does not exist!!");
+    }
     if (data && data.password === userPassword) {
       data.isValid = true;
       localStorage.setItem("userData", JSON.stringify(data));

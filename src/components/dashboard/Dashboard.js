@@ -7,7 +7,7 @@ export default function Dashboard({userName, isValid}) {
     <div>
       <div className="container">
         {isValid ? (
-          <div className="dashboard">Hello! {userName}</div>
+          <div className="dashboard">Hello {userName}!!</div>
         ) : (
           <div className="dashboard">Hello Guest!</div>
         )}
