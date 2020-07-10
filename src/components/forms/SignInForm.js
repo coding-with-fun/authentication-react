@@ -7,7 +7,7 @@ export default function SignInForm() {
 
   return (
     <div className="text-center container">
-      <form action="/" className="form-auth" onSubmit={validate}>
+      <form action="/" className="form-auth">
         <img
           className="mb-4"
           src="https://image.flaticon.com/icons/png/512/61/61457.png"
@@ -33,7 +33,7 @@ export default function SignInForm() {
           onChange={(e) => setUserPassword(e.target.value)}
           required
         />
-        <button className="btn btn-lg btn-primary btn-block" type="submit">
+        <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={(e) => validate(e)}>
           Sign in
         </button>
       </form>

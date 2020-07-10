@@ -1,16 +1,15 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { SignUpForm, Dashboard, SignInForm, Navigation } from "./components";
-import { UserContext } from "./contexts/UserContext";
+import { SignUpForm, Dashboard, SignInForm, Navigation } from "..";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function LandingPage() {
-  const { inputEmail } = useContext(UserContext);
+  let userData = localStorage.getItem("userData");
 
-  let userData = localStorage.getItem(inputEmail);
   if (userData) {
     userData = JSON.parse(userData);
   } else {
-    userData = { isValid: true };
+    userData = { isValid: false };
   }
 
   return (

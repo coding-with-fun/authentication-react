@@ -14,7 +14,7 @@ export default function SignUpForm() {
 
   return (
     <div className="text-center container">
-      <form action="/" className="form-auth" onSubmit={saveValues}>
+      <form className="form-auth" action="/">
         <img
           className="mb-4"
           src="https://image.flaticon.com/icons/png/512/61/61457.png"
@@ -64,7 +64,11 @@ export default function SignUpForm() {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        <button className="btn btn-lg btn-primary btn-block" type="submit">
+        <button
+          className="btn btn-lg btn-primary btn-block"
+          type="submit"
+          onClick={(e) => saveValues(e)}
+        >
           Sign up
         </button>
       </form>

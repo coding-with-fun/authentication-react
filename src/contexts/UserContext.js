@@ -1,46 +1,46 @@
 import React, { createContext, useState } from "react";
+import { Redirect } from "react-router-dom";
 
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
-  const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [inputEmail, setInputEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [isValid, setIsValid] = useState(false);
+  const [name, setName] = useState();
+  const [userName, setUserName] = useState();
+  const [inputEmail, setInputEmail] = useState();
+  const [password, setPassword] = useState();
+  const [userEmail, setUserEmail] = useState();
+  const [userPassword, setUserPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
 
-  const saveValues = () => {
+  const saveValues = (e) => {
     if (password === confirmPassword) {
-      setIsValid(true);
       const data = {
         name: name,
         userName: userName,
         inputEmail: inputEmail,
         password: password,
-        confirmPassword: confirmPassword,
-        isValid: isValid,
+        isValid: true,
       };
-      localStorage.setItem(inputEmail, JSON.stringify(data));
+      localStorage.setItem("userData", JSON.stringify(data));
+    } else {
+      alert("Invalid password!");
     }
   };
 
-  const validate = () => {
-    let data = localStorage.getItem(inputEmail);
+  const validate = (e) => {
+    let data = localStorage.getItem("userData");
     data = JSON.parse(data);
-    if (data && data.password === password) {
+    if (data && data.password === userPassword) {
       data.isValid = true;
     }
+    localStorage.setItem("userData", JSON.stringify(data));
   };
 
-  const logOut = () => {
-    let data = localStorage.getItem(inputEmail);
+  const logOut = (e) => {
+    let data = localStorage.getItem("userData");
     data = JSON.parse(data);
-
     data.isValid = false;
-    localStorage.setItem(inputEmail, JSON.stringify(data));
+    localStorage.setItem("userData", JSON.stringify(data));
   };
 
   return (

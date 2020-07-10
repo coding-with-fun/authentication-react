@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Navigation.css";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Navbar({ isValid }) {
+  const { logOut } = useContext(UserContext);
+
   return (
     <div className="navigation">
       {/* Fixed navbar */}
       <nav className="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <a className="navbar-brand nav-logo" href="/">
-          Unspoken Words
+          SoftVan
         </a>
         <button
           className="navbar-toggler"
@@ -35,7 +38,11 @@ export default function Navbar({ isValid }) {
                 </a>
               </>
             ) : (
-              <a className="btn btn-outline-light" href="/">
+              <a
+                className="btn btn-outline-light"
+                href="/"
+                onClick={(e) => logOut(e)}
+              >
                 Logout
               </a>
             )}
