@@ -45,13 +45,12 @@ export default function Navbar({ isValid }) {
                 </div>
               </>
             ) : (
-              <a
+              <div
                 className="btn btn-outline-light"
-                href="/"
-                onClick={(e) => logOut(e)}
+                onClick={(e) => logOut(e, history)}
               >
                 Logout
-              </a>
+              </div>
             )}
           </div>
         </div>

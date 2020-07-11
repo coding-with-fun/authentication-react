@@ -45,7 +45,7 @@ export default function LandingPage() {
               }
             />
 
-            <Route path="/:string" component={PageNotFound} />
+            <Route path="/:string" render={() => <PageNotFound />} />
           </Switch>
         </div>
       </Switch>

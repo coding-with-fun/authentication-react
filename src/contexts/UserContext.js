@@ -11,10 +11,14 @@ export const UserProvider = (props) => {
   const [userEmail, setUserEmail] = useState();
   const [userPassword, setUserPassword] = useState();
 
-  let isValidUser = false;
+  const user = sessionStorage.getItem("userEmail");
+  let userData = localStorage.getItem(user);
+  const [isValid, setIsValid] = useState(userData ? userData.isValid : false);
 
   // Values check at Sign In
-  const saveValues = (e) => {
+  const saveValues = (e, history) => {
+    let isValidUser = false;
+
     // Set new email ID to session storage
     sessionStorage.setItem("userEmail", inputEmail);
 
@@ -54,12 +58,14 @@ export const UserProvider = (props) => {
           isValid: true,
         };
         localStorage.setItem(inputEmail, JSON.stringify(data));
+        setIsValid(true);
+        history.push(`/`);
       }
     }
   };
 
   // Data validation at login
-  const validate = (e) => {
+  const validate = (e, history) => {
     // Set email ID to session storage
     sessionStorage.setItem("userEmail", userEmail);
 
@@ -82,18 +88,22 @@ export const UserProvider = (props) => {
           // If the credentials are correct, store validation flag to true in local storage
           data.isValid = true;
           localStorage.setItem(userEmail, JSON.stringify(data));
+          setIsValid(true);
+          history.push(`/`);
         }
       }
     }
   };
 
   // Setting validation flag to false at logout
-  const logOut = (e) => {
+  const logOut = (e, history) => {
     const user = sessionStorage.getItem("userEmail");
     let data = localStorage.getItem(user);
     data = JSON.parse(data);
     data.isValid = false;
     localStorage.setItem(user, JSON.stringify(data));
+    setIsValid(false);
+    history.push(`/`);
   };
 
   return (
@@ -111,6 +121,8 @@ export const UserProvider = (props) => {
           saveValues: saveValues,
           validate: validate,
           logOut: logOut,
+
+          isValid: isValid,
         }}
       >
         {props.children}

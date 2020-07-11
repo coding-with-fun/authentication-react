@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import "./Form.css";
 import { UserContext } from "../../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 export default function SignUpForm() {
+  const history = useHistory();
   const {
     saveValues,
     setName,
@@ -58,7 +60,7 @@ export default function SignUpForm() {
         <button
           className="btn btn-lg btn-primary btn-block"
           type="submit"
-          onClick={(e) => saveValues(e)}
+          onClick={(e) => saveValues(e, history)}
         >
           Sign up
         </button>

@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import "./Form.css";
 import { UserContext } from "../../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 export default function SignInForm() {
+  const history = useHistory();
   const { setUserEmail, setUserPassword, validate } = useContext(UserContext);
 
   return (
@@ -33,7 +35,11 @@ export default function SignInForm() {
           onChange={(e) => setUserPassword(e.target.value)}
           required
         />
-        <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={(e) => validate(e)}>
+        <button
+          className="btn btn-lg btn-primary btn-block"
+          type="submit"
+          onClick={(e) => validate(e, history)}
+        >
           Sign in
         </button>
       </form>
