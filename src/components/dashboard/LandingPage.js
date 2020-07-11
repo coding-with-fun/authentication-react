@@ -7,6 +7,7 @@ import { UserContext } from "../../contexts/UserContext";
 export default function LandingPage() {
   const user = sessionStorage.getItem("userEmail");
   let userData = localStorage.getItem(user);
+  // eslint-disable-next-line
   const { isValid } = useContext(UserContext);
 
   if (userData) {
@@ -26,18 +27,25 @@ export default function LandingPage() {
               exact
               path="/"
               render={() => (
-                <Dashboard userName={userData.name} isValid={userData.isValid} />
+                <Dashboard
+                  userName={userData.name}
+                  isValid={userData.isValid}
+                />
               )}
             />
 
             <Route
               path="/signup"
-              render={() => (!userData.isValid ? <SignUpForm /> : <Redirect to="/" />)}
+              render={() =>
+                !userData.isValid ? <SignUpForm /> : <Redirect to="/" />
+              }
             />
 
             <Route
               path="/signin"
-              render={() => (!userData.isValid ? <SignInForm /> : <Redirect to="/" />)}
+              render={() =>
+                !userData.isValid ? <SignInForm /> : <Redirect to="/" />
+              }
             />
 
             <Route path="/:string" render={() => <PageNotFound />} />
