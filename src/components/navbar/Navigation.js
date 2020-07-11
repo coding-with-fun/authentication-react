@@ -1,17 +1,24 @@
 import React, { useContext } from "react";
 import "./Navigation.css";
 import { UserContext } from "../../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 export default function Navbar({ isValid }) {
   const { logOut } = useContext(UserContext);
+
+  const history = useHistory();
+
+  const GoTo = (path) => {
+    history.push(path)
+  }
 
   return (
     <div className="navigation">
       {/* Fixed navbar */}
       <nav className="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
-        <a className="navbar-brand nav-logo" href="/">
+        <div className="navbar-brand nav-logo" onClick={() => GoTo(`/`)}>
           SoftVan
-        </a>
+        </div>
         <button
           className="navbar-toggler"
           type="button"
@@ -30,21 +37,21 @@ export default function Navbar({ isValid }) {
           <div className="navbar-nav">
             {!isValid ? (
               <>
-                <a className="btn btn-outline-light" href="/signin">
+                <div className="btn btn-outline-light" onClick={() => GoTo(`signin`)}>
                   Sign In
-                </a>
-                <a className="btn btn-outline-light" href="/signup">
+                </div>
+                <div className="btn btn-outline-light" onClick={() => GoTo(`signup`)}>
                   Sign Up
-                </a>
+                </div>
               </>
             ) : (
-              <a
+              <div
                 className="btn btn-outline-light"
                 href="/"
                 onClick={(e) => logOut(e)}
               >
                 Logout
-              </a>
+              </div>
             )}
           </div>
         </div>

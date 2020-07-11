@@ -6,6 +6,7 @@
   font-size: x-large;
   padding-top: 10px;
   margin-left: 15px;
+  cursor: pointer;
 }
 
 .navbar-nav .btn {
