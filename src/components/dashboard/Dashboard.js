@@ -1,7 +1,7 @@
 import React from "react";
 import "./Dashboard.css";
 
-export default function Dashboard({userName, isValid}) {
+export default function Dashboard({ userName, isValid }) {
   return (
     <div>
       <div className="container">
