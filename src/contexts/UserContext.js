@@ -18,6 +18,7 @@ export const UserProvider = (props) => {
     // Set new email ID to session storage
     sessionStorage.setItem("userEmail", inputEmail);
 
+    // Password validation
     if (!password || !confirmPassword || password !== confirmPassword) {
       e.preventDefault();
       alert("Invalid password!");
@@ -26,7 +27,7 @@ export const UserProvider = (props) => {
       let usersList = localStorage.getItem("usersList");
 
       if (!usersList) {
-        // Is user list is empty add new user to it
+        // Is user list is empty add new user to it and set validation flag to true
         usersList = [inputEmail];
         localStorage.setItem("usersList", JSON.stringify(usersList));
         isValidUser = true;
@@ -37,11 +38,14 @@ export const UserProvider = (props) => {
           e.preventDefault();
           alert("Email ID already exist!!");
         } else {
+          // Update user list in local storage and set validation flag to true
           usersList = [...usersList, inputEmail];
           localStorage.setItem("usersList", JSON.stringify(usersList));
           isValidUser = true;
         }
       }
+
+      // If the user is valid, add new data to local storage
       if (isValidUser) {
         const data = {
           name: name,
@@ -56,10 +60,13 @@ export const UserProvider = (props) => {
 
   // Data validation at login
   const validate = (e) => {
+    // Set email ID to session storage
     sessionStorage.setItem("userEmail", userEmail);
-    const user = sessionStorage.getItem("userEmail");
-    let data = localStorage.getItem(user);
+
+    // Fetch data from local storage corresponding to the user email ID
+    let data = localStorage.getItem(userEmail);
     data = JSON.parse(data);
+
     if (!data) {
       e.preventDefault();
       alert("User does not exist!!");
@@ -72,14 +79,15 @@ export const UserProvider = (props) => {
           e.preventDefault();
           alert("Email ID does not exist!!");
         } else {
+          // If the credentials are correct, store validation flag to true in local storage
           data.isValid = true;
-          localStorage.setItem(user, JSON.stringify(data));
+          localStorage.setItem(userEmail, JSON.stringify(data));
         }
       }
     }
   };
 
-  // Setting validation to false at logout
+  // Setting validation flag to false at logout
   const logOut = (e) => {
     const user = sessionStorage.getItem("userEmail");
     let data = localStorage.getItem(user);
@@ -92,12 +100,13 @@ export const UserProvider = (props) => {
     <div>
       <UserContext.Provider
         value={{
-          setUserPassword: setUserPassword,
           setName: setName,
           setInputEmail: setInputEmail,
           setPassword: setPassword,
           setConfirmPassword: setConfirmPassword,
+
           setUserEmail: setUserEmail,
+          setUserPassword: setUserPassword,
 
           saveValues: saveValues,
           validate: validate,
