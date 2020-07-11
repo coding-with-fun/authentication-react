@@ -11,41 +11,46 @@ export const UserProvider = (props) => {
   const [userEmail, setUserEmail] = useState();
   const [userPassword, setUserPassword] = useState();
 
+  let isValidUser = false;
+
   // Values check at Sign In
   const saveValues = (e) => {
     // Set new email ID to session storage
     sessionStorage.setItem("userEmail", inputEmail);
 
-    // Get list of users from local storage
-    let usersList = localStorage.getItem("usersList");
-
-    if (!usersList) {
-      // Is user list is empty add new user to it
-      usersList = [inputEmail];
-      localStorage.setItem("usersList", JSON.stringify(usersList));
-    } else {
-      // If user list is not empty check validations
-      usersList = JSON.parse(usersList);
-      if (usersList.includes(inputEmail)) {
-        e.preventDefault();
-        alert("Email ID already exist!!");
-      } else {
-        usersList = [...usersList, inputEmail];
-        localStorage.setItem("usersList", JSON.stringify(usersList));
-      }
-    }
-
     if (!password || !confirmPassword || password !== confirmPassword) {
       e.preventDefault();
       alert("Invalid password!");
     } else {
-      const data = {
-        name: name,
-        email: inputEmail,
-        password: password,
-        isValid: true,
-      };
-      localStorage.setItem(inputEmail, JSON.stringify(data));
+      // Get list of users from local storage
+      let usersList = localStorage.getItem("usersList");
+
+      if (!usersList) {
+        // Is user list is empty add new user to it
+        usersList = [inputEmail];
+        localStorage.setItem("usersList", JSON.stringify(usersList));
+        isValidUser = true;
+      } else {
+        // If user list is not empty check validations
+        usersList = JSON.parse(usersList);
+        if (usersList.includes(inputEmail)) {
+          e.preventDefault();
+          alert("Email ID already exist!!");
+        } else {
+          usersList = [...usersList, inputEmail];
+          localStorage.setItem("usersList", JSON.stringify(usersList));
+          isValidUser = true;
+        }
+      }
+      if (isValidUser) {
+        const data = {
+          name: name,
+          email: inputEmail,
+          password: password,
+          isValid: true,
+        };
+        localStorage.setItem(inputEmail, JSON.stringify(data));
+      }
     }
   };
 
