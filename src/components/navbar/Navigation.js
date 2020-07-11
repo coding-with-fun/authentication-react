@@ -60,7 +60,10 @@ export default function Navbar({ isValid }) {
         <div className="container">
           <span className="text-muted">
             © 2020 Copyright:
-            <a href="https://github.com/harsh2124/blog-app" target="blank">
+            <a
+              href="https://github.com/harsh2124/authentication-react"
+              target="blank"
+            >
               <b> Harsh Patel</b>
             </a>
           </span>
