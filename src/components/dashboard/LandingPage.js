@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { SignUpForm, Dashboard, SignInForm, Navigation } from "..";
+import PageNotFound from "./404";
 
 export default function LandingPage() {
-  const user = sessionStorage.getItem("userEmail")
+  const user = sessionStorage.getItem("userEmail");
   let userData = localStorage.getItem(user);
 
   if (userData) {
@@ -16,26 +17,38 @@ export default function LandingPage() {
     <div>
       <Navigation isValid={userData.isValid} />
 
-      <BrowserRouter>
+      <Switch>
         <div className="content-body">
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <Dashboard
-                userName={userData.name}
-                isValid={userData.isValid}
-              />
-            )}
-          />
-          {userData.isValid ? null : (
-            <Switch>
-              <Route path="/signup" component={SignUpForm} />
-              <Route path="/signin" component={SignInForm} />
-            </Switch>
-          )}
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Dashboard
+                  userName={userData.name}
+                  isValid={userData.isValid}
+                />
+              )}
+            />
+
+            <Route
+              path="/signup"
+              render={() =>
+                !userData.isValid ? <SignUpForm /> : <Redirect to="/" />
+              }
+            />
+
+            <Route
+              path="/signin"
+              render={() =>
+                !userData.isValid ? <SignInForm /> : <Redirect to="/" />
+              }
+            />
+
+            <Route path="/:string" component={PageNotFound} />
+          </Switch>
         </div>
-      </BrowserRouter>
+      </Switch>
     </div>
   );
 }
