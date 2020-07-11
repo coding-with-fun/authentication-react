@@ -12,7 +12,26 @@ export const UserProvider = (props) => {
   const [confirmPassword, setConfirmPassword] = useState();
 
   const saveValues = (e) => {
-    let data = localStorage.getItem("userData");
+    // e.preventDefault();
+    sessionStorage.setItem("userEmail", inputEmail);
+
+    let usersList = localStorage.getItem("usersList");
+
+    if (!usersList) {
+      usersList = [inputEmail];
+      localStorage.setItem("usersList", JSON.stringify(usersList));
+    } else {
+      usersList = JSON.parse(usersList);
+      if (!usersList.includes(inputEmail)) {
+        usersList = [...usersList, inputEmail];
+        localStorage.setItem("usersList", JSON.stringify(usersList));
+      } else {
+        e.preventDefault();
+        alert("Email ID already exist!!");
+      }
+    }
+
+    let data = localStorage.getItem(inputEmail);
     data = JSON.parse(data);
     if (!password || !confirmPassword || password !== confirmPassword) {
       e.preventDefault();
@@ -33,14 +52,16 @@ export const UserProvider = (props) => {
             password: password,
             isValid: true,
           };
-          localStorage.setItem("userData", JSON.stringify(data));
+          localStorage.setItem(inputEmail, JSON.stringify(data));
         }
       }
     }
   };
 
   const validate = (e) => {
-    let data = localStorage.getItem("userData");
+    sessionStorage.setItem("userEmail", userEmail);
+    const user = sessionStorage.getItem("userEmail");
+    let data = localStorage.getItem(user);
     data = JSON.parse(data);
     if (!data) {
       e.preventDefault();
@@ -55,17 +76,18 @@ export const UserProvider = (props) => {
           alert("Email ID does not exist!!");
         } else {
           data.isValid = true;
-          localStorage.setItem("userData", JSON.stringify(data));
+          localStorage.setItem(user, JSON.stringify(data));
         }
       }
     }
   };
 
   const logOut = (e) => {
-    let data = localStorage.getItem("userData");
+    const user = sessionStorage.getItem("userEmail");
+    let data = localStorage.getItem(user);
     data = JSON.parse(data);
     data.isValid = false;
-    localStorage.setItem("userData", JSON.stringify(data));
+    localStorage.setItem(user, JSON.stringify(data));
   };
 
   return (

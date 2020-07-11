@@ -3,7 +3,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { SignUpForm, Dashboard, SignInForm, Navigation } from "..";
 
 export default function LandingPage() {
-  let userData = localStorage.getItem("userData");
+  const user = sessionStorage.getItem("userEmail")
+  let userData = localStorage.getItem(user);
 
   if (userData) {
     userData = JSON.parse(userData);
