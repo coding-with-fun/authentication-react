@@ -2,7 +2,6 @@ import React from "react";
 import "./Dashboard.css";
 
 export default function Dashboard({userName, isValid}) {
-  console.log(userName);
   return (
     <div>
       <div className="container">
