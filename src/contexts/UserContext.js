@@ -4,7 +4,6 @@ export const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const [name, setName] = useState();
-  const [userName, setUserName] = useState();
   const [inputEmail, setInputEmail] = useState();
   const [password, setPassword] = useState();
   const [userEmail, setUserEmail] = useState();
@@ -41,19 +40,13 @@ export const UserProvider = (props) => {
         e.preventDefault();
         alert("Email ID already exist!!");
       } else {
-        if (data && userName === data.userName) {
-          e.preventDefault();
-          alert("Username already exist!!");
-        } else {
-          const data = {
-            name: name,
-            userName: userName,
-            inputEmail: inputEmail,
-            password: password,
-            isValid: true,
-          };
-          localStorage.setItem(inputEmail, JSON.stringify(data));
-        }
+        const data = {
+          name: name,
+          inputEmail: inputEmail,
+          password: password,
+          isValid: true,
+        };
+        localStorage.setItem(inputEmail, JSON.stringify(data));
       }
     }
   };
@@ -94,7 +87,6 @@ export const UserProvider = (props) => {
     <div>
       <UserContext.Provider
         value={{
-          setUserName: setUserName,
           setUserPassword: setUserPassword,
           setName: setName,
           setInputEmail: setInputEmail,

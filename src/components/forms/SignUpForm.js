@@ -6,7 +6,6 @@ export default function SignUpForm() {
   const {
     saveValues,
     setName,
-    setUserName,
     setInputEmail,
     setPassword,
     setConfirmPassword,
@@ -31,14 +30,6 @@ export default function SignUpForm() {
           onChange={(e) => setName(e.target.value)}
           required
           autoFocus
-        />
-        <input
-          type="text"
-          id="username"
-          className="form-control"
-          placeholder="User Name"
-          onChange={(e) => setUserName(e.target.value)}
-          required
         />
         <input
           type="email"
